@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:image" content="">
+    <meta property="og:title" content="Cumpleaños Elías>
+    <meta property="og:type" content="website"/>
+    <meta property="og:description" content="Hay momentos en la vida que son especiales, compartirlos con las personas que quieres los convierte en inolvidables">
+    <title>Cumpleaños Elías</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="img/ico.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+        integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+</head>
+
+<body>
+
+<div class="max-w-md mx-auto mt-8">
+  <img src="https://via.placeholder.com/300x200" alt="Foto de la fiesta" class="mb-4">
+  <p class="mb-4">¡Hola! Te invitamos a nuestra fiesta de cumpleaños. ¡Será una tarde inolvidable! </p>
+  <p class="mb-4">Fecha: <span x-text="date"></span></p>
+  <p class="mb-4" x-text="daysLeft() + ' días faltan para el cumpleaños'"></p>
+  <a href="#" class="mb-4 text-blue-500 hover:text-blue-700">Ver mesa de regalos</a>
+  <div class="mb-4">
+    <div id="map" class="h-48"></div>
+    <p class="text-gray-500 text-sm mt-2">Dirección: Quinta Uziel, 
+San Nicolás de Arriba- San Jose de la Ordeña, 20364 Aguascalientes, Ags.</p>
+  </div>
+  <a href="https://wa.me/1234567890" class="bg-green-500 text-white rounded-full py-2 px-4 hover:bg-green-600">Confirmar asistencia</a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.4.2"></script>
+<script>
+  function initializeMap() {
+    const map = new google.maps.Map(document.getElementById('map'), {
+      center: { lat: 37.7749, lng: -122.4194 },
+      zoom: 13,
+      mapTypeId: 'roadmap',
+    });
+    const marker = new google.maps.Marker({
+      map,
+      position: { lat: 21.9608415, lng:-102.2118706 },
+      title: 'Fiesta de cumpleaños Elías',
+    });
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    initializeMap();
+  });
+  function daysDiff(date1, date2) {
+    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    return Math.round(Math.abs((date1 - date2) / oneDay));
+  }
+  window.Alpine = {
+    data() {
+      return {
+        date: '2023-05-20',
+        daysLeft() {
+          const date = new Date(this.date);
+          const today = new Date();
+          const days = daysDiff(date, today);
+          return days > 0 ? days : '¡Hoy es el cumpleaños!';
+        },
+      };
+    },
+  };
+</script>
+
+</body>
+
+</html>
